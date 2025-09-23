@@ -32,7 +32,7 @@ final class ElevenLabs extends Model
     public const SCRIBE_V1_EXPERIMENTAL = 'scribe_v1_experimental';
 
     public function __construct(
-        string $name = self::ELEVEN_MULTILINGUAL_V2,
+        string $name,
         array $options = [],
     ) {
         parent::__construct($name, [], $options);
