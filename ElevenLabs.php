@@ -31,10 +31,8 @@ final class ElevenLabs extends Model
     public const SCRIBE_V1 = 'scribe_v1';
     public const SCRIBE_V1_EXPERIMENTAL = 'scribe_v1_experimental';
 
-    public function __construct(
-        string $name,
-        array $options = [],
-    ) {
+    public function __construct(string $name, array $options = [])
+    {
         parent::__construct($name, [], $options);
     }
 }
