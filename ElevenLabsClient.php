@@ -51,7 +51,7 @@ final readonly class ElevenLabsClient implements ModelClientInterface
             throw new InvalidArgumentException(\sprintf('The model "%s" does not support text-to-speech.', $model->getName()));
         }
 
-        return $this->doTextToSpeechRequest($model, $payload, $options);
+        return $this->doTextToSpeechRequest($model, $payload, array_merge($options, $model->getOptions()));
     }
 
     /**
@@ -76,7 +76,7 @@ final readonly class ElevenLabsClient implements ModelClientInterface
      */
     private function doTextToSpeechRequest(Model $model, array|string $payload, array $options): RawHttpResult
     {
-        if (!\array_key_exists('voice', $model->getOptions())) {
+        if (!\array_key_exists('voice', $options)) {
             throw new InvalidArgumentException('The voice option is required.');
         }
 
@@ -84,8 +84,8 @@ final readonly class ElevenLabsClient implements ModelClientInterface
             throw new InvalidArgumentException('The payload must contain a "text" key.');
         }
 
-        $voice = $options['voice'] ??= $model->getOptions()['voice'];
-        $stream = $options['stream'] ??= $model->getOptions()['stream'] ?? false;
+        $voice = $options['voice'];
+        $stream = $options['stream'] ?? false;
 
         $url = $stream
             ? \sprintf('%s/text-to-speech/%s/stream', $this->hostUrl, $voice)
