@@ -41,6 +41,11 @@ final class Factory
     ): ProviderInterface {
         $httpClient = $httpClient instanceof EventSourceHttpClient ? $httpClient : new EventSourceHttpClient($httpClient);
 
+        // The endpoint carries a path prefix ("/v1"), against which the model clients resolve relative
+        // paths. A single trailing slash is required for that resolution, so normalize it here to
+        // tolerate an endpoint configured with or without it.
+        $endpoint = rtrim($endpoint, '/').'/';
+
         if (null !== $apiKey) {
             $httpClient = ScopingHttpClient::forBaseUri($httpClient, $endpoint, [
                 'headers' => [

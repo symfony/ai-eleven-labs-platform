@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.11
+----
+
+ * Tolerate an `endpoint` configured with or without a trailing slash
+
 0.8
 ---
 
